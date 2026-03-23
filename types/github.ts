@@ -18,6 +18,9 @@ export interface Repo {
   stargazers_count: number;
   language: string;
   html_url: string;
+  size: number;
+  forks_count: number;
+  updated_at: string;
 }
 
 export interface GitHubFollower {
