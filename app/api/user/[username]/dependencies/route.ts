@@ -1,5 +1,52 @@
 import { NextResponse } from 'next/server';
 
+/**
+ * @swagger
+ * /api/user/{username}/dependencies:
+ *   get:
+ *     summary: Fetch project dependencies from the latest repository
+ *     operationId: getUserDependencies
+ *     tags:
+ *       - Analysis
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successfully fetched dependencies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - repoName
+ *                 - type
+ *                 - dependencies
+ *               properties:
+ *                 repoName:
+ *                   type: string
+ *                 type:
+ *                   type: string
+ *                 dependencies:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *               example:
+ *                 repoName: "project-123"
+ *                 type: "Node.js (package.json)"
+ *                 dependencies:
+ *                   - react
+ *                   - next
+ *                   - axios
+ *       404:
+ *         description: User or repository not found
+ *       500:
+ *         description: Internal server error
+ */
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ username: string }> }

@@ -2,6 +2,56 @@ import { NextResponse } from 'next/server';
 import { Repo } from '@/types/github';
 
 /**
+ * @swagger
+ * /api/user/{username}/stats:
+ *   get:
+ *     summary: Get GitHub user combat statistics
+ *     operationId: getUserStats
+ *     tags:
+ *       - Battle Arena
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - username
+ *                 - powerLevel
+ *                 - yearsActive
+ *                 - totalStars
+ *                 - topLanguage
+ *                 - followers
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                 powerLevel:
+ *                   type: integer
+ *                 yearsActive:
+ *                   type: integer
+ *                 totalStars:
+ *                   type: integer
+ *                 topLanguage:
+ *                   type: string
+ *                 followers:
+ *                   type: integer
+ *               example:
+ *                 username: "user123"
+ *                 powerLevel: 9001
+ *                 yearsActive: 5
+ *                 totalStars: 1234
+ *                 topLanguage: "TypeScript"
+ *                 followers: 250
+ */
+
+/**
  * Statistics Aggregator Endpoint.
  * Fetches bulk data from GitHub (up to 100 repos) and performs data 
  * processing on the server to return a lightweight summary to the frontend.

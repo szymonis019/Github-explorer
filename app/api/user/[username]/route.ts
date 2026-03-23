@@ -1,6 +1,58 @@
 import { NextResponse } from 'next/server';
 
 /**
+ * @swagger
+ * /api/user/{username}:
+ *   get:
+ *     summary: Get GitHub user profile
+ *     description: Proxy endpoint that fetches GitHub user data securely using server-side token
+ *     operationId: getGitHubUserProfile
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successfully fetched GitHub user profile
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 login:
+ *                   type: string
+ *                 id:
+ *                   type: integer
+ *                 avatar_url:
+ *                   type: string
+ *                 html_url:
+ *                   type: string
+ *                 public_repos:
+ *                   type: integer
+ *                 followers:
+ *                   type: integer
+ *                 following:
+ *                   type: integer
+ *               example:
+ *                 login: "octocat"
+ *                 id: 1
+ *                 avatar_url: "https://github.com/images/error/octocat_happy.gif"
+ *                 html_url: "https://github.com/octocat"
+ *                 public_repos: 8
+ *                 followers: 100
+ *                 following: 0
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: GitHub API error
+ */
+
+
+/**
  * API Route Handler: Proxy for GitHub User Profile.
  * This route implements the BFF (Backend For Frontend) pattern. 
  * It allows the client to fetch data without exposing the GITHUB_TOKEN to the browser.
