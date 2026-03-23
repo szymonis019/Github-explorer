@@ -1,8 +1,10 @@
 import { GitHubUser, Repo } from '@/types/github';
-import { Folder, Users, MapPin, ExternalLink, Activity, Star, ArrowLeft } from 'lucide-react';
+import { Folder, Users, MapPin, ExternalLink, Activity, Star, ArrowLeft, Swords } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import StatsBoard from '@/components/StatsBoard';
+import CommitClock from '@/components/CommitClock';
+import TechRadar from '@/components/TechRadar';
 
 /**
  * Server-side data fetching from GitHub API.
@@ -52,14 +54,23 @@ export default async function UserPage({ params }: { params: Promise<{ username:
     <div className="min-h-screen bg-gray-950 text-white p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         
-        {/* Navigation back to search */}
-        <Link 
-          href="/" 
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors group w-fit"
-        >
-          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          Wróć do wyszukiwarki
-        </Link>
+        {/* Navigation back to search and Duel */}
+        <div className="flex justify-between items-center">
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors group w-fit"
+          >
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            Wróć do wyszukiwarki
+          </Link>
+
+          <Link 
+            href="/duel" 
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all text-sm font-bold"
+          >
+            <Swords size={16} /> Dev Duel
+          </Link>
+        </div>
         
         {/* Main User Profile Header */}
         <div className="bg-gray-900 p-8 rounded-3xl border border-gray-800 flex flex-col md:flex-row gap-8 items-center shadow-2xl relative overflow-hidden">
@@ -78,6 +89,12 @@ export default async function UserPage({ params }: { params: Promise<{ username:
 
         {/* Integration of Client-Side statistics fetching */}
         <StatsBoard username={user.login} publicRepos={user.public_repos} joinYear={joinYear} />
+
+        {/* Analysis: Activity Clock and Tech Radar */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CommitClock username={user.login} />
+          <TechRadar username={user.login} />
+        </div>
 
         {/* Recent Repositories Grid */}
         <div className="pt-4">
